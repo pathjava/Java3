@@ -16,10 +16,10 @@ public class RunCalculator {
 
     public static void runCalc(String str) {
         String symbol = "";
-        Pattern p = Pattern.compile("\\+|\\-|\\*|\\/", Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(str);
-        while (m.find()) {
-            symbol = String.valueOf(str.charAt(m.start()));
+        Pattern pattern = Pattern.compile("\\+|\\-|\\*|\\/", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(str);
+        while (matcher.find()) {
+            symbol = String.valueOf(str.charAt(matcher.start()));
         }
         if (symbol.length() == 0)
             throw new IllegalArgumentException("Разрешено использовать только эти символы: +,-,/,*");
