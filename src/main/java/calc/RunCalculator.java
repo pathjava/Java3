@@ -15,29 +15,32 @@ public class RunCalculator {
     private static final Calculator calculator = new Calculator(iCalc);
 
     public static void runCalc(String str) {
-        String[] arg = str.split("\\+|\\-|\\*|\\/");
-        if (arg.length != 2)
-            throw new IllegalArgumentException("Неверное количество аргументов");
-
         String symbol = "";
         Pattern p = Pattern.compile("\\+|\\-|\\*|\\/", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(str);
         while (m.find()) {
             symbol = String.valueOf(str.charAt(m.start()));
         }
+        if (symbol.length() == 0)
+            throw new IllegalArgumentException("Разрешено использовать только эти символы: +,-,/,*");
+
+        String[] numbers = str.split("\\+|\\-|\\*|\\/");
+        if (numbers.length != 2)
+            throw new IllegalArgumentException("Неверное количество аргументов");
 
         int first;
         int second;
         try {
-            first = Integer.parseInt(arg[0].trim());
+            first = Integer.parseInt(numbers[0].trim());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Первым аргументом было введено не число");
         }
         try {
-            second = Integer.parseInt(arg[1].trim());
+            second = Integer.parseInt(numbers[1].trim());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Вторым аргументом было введено не число");
         }
+
         int result;
         switch (symbol) {
             case "+":
@@ -49,11 +52,8 @@ public class RunCalculator {
             case "/":
                 result = calculator.getICalc().div(first, second);
                 break;
-            case "*":
-                result = calculator.getICalc().mult(first, second);
-                break;
             default:
-                throw new IllegalArgumentException("Разрешено использовать только эти символы: +,-,/,*");
+                result = calculator.getICalc().mult(first, second);
         }
         System.out.println(result);
     }
