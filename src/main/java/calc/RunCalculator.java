@@ -41,6 +41,11 @@ public class RunCalculator {
             throw new IllegalArgumentException("Вторым аргументом было введено не число");
         }
 
+        int result = getResult(symbol, first, second);
+        System.out.println(result);
+    }
+
+    private static int getResult(String symbol, int first, int second) {
         int result;
         switch (symbol) {
             case "+":
@@ -55,7 +60,7 @@ public class RunCalculator {
             default:
                 result = calculator.getICalc().mult(first, second);
         }
-        System.out.println(result);
+        return result;
     }
 
     public static void main(String[] args) {
