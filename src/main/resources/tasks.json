@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "01",
+    "description": "desc",
+    "author": "Dev",
+    "name": "Oleg",
+    "storyPoint": 1
+  },
+  {
+    "id": "02",
+    "description": "desc",
+    "author": "Dev",
+    "name": "Oleg",
+    "storyPoint": 1
+  }
+]
