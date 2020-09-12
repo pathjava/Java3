@@ -1,8 +1,13 @@
 package task;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FileTaskRepository implements TaskRepository {
+
+    private final Map<String, Task> tasks = new ConcurrentHashMap<>();
+
     @Override
     public void save(Task task) {
 
