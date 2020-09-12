@@ -48,7 +48,7 @@ public class FileTaskRepository implements TaskRepository {
     @Override
     public void delete(String id) {
         Task temp = tasks.remove(id);
-        if (temp == null)
+        if (temp != null)
             saveToJson();
     }
 
@@ -80,5 +80,9 @@ public class FileTaskRepository implements TaskRepository {
             ArrayList<Task> list = new Gson().fromJson(json, type);
             list.forEach(i -> tasks.put(i.getId(), i));
         }
+    }
+
+    public int getSize(){
+        return tasks.size();
     }
 }
