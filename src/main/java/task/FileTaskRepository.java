@@ -41,7 +41,7 @@ public class FileTaskRepository implements TaskRepository {
     @Override
     public void update(Task task) {
         Task temp = tasks.remove(task.getId());
-        if (temp == null)
+        if (temp != null)
             save(task);
     }
 
@@ -82,7 +82,7 @@ public class FileTaskRepository implements TaskRepository {
         }
     }
 
-    public int getSize(){
+    public int getSize() {
         return tasks.size();
     }
 }

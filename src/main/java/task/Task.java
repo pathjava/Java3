@@ -39,12 +39,12 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id='" + id + '\'' +
-                ", description='" + description + '\'' +
-                ", author='" + author + '\'' +
-                ", name='" + name + '\'' +
-                ", storyPoint=" + storyPoint +
-                '}';
+        return "Task{\n" +
+                "id=" + id + "\n" +
+                "description=" + description + "\n" +
+                "author='" + author + "\n" +
+                "name='" + name + "\n" +
+                "storyPoint=" + storyPoint + "\n" +
+                "}\n";
     }
 }
