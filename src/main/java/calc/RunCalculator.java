@@ -70,6 +70,8 @@ public class RunCalculator {
             try {
                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                 String str = br.readLine();
+                if (str.isEmpty())
+                    throw new IllegalArgumentException("Вы не ввели условие");
                 if (str.toLowerCase().equals("stop"))
                     return;
                 runCalc(str);
