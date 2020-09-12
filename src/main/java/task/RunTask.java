@@ -31,10 +31,20 @@ public class RunTask {
                 viewTask();
                 break;
             case "5":
-                fileTask.delete("01");
+                deleteTask();
             default:
                 System.out.println("Вы не выбрали номер задачи");
         }
+    }
+
+    private static void deleteTask() {
+        System.out.println("Введите id задачи:");
+        Scanner input = new Scanner(System.in);
+        Task task = returnTask(input);
+        if (task == null)
+            return;
+        fileTask.delete(task.getId());
+        System.out.println("Задача успешно удалена!\n");
     }
 
     private static void viewTask() {
