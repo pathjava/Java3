@@ -12,4 +12,23 @@ public enum  Task {
     private String name;
     private int storyPoint;
 
+    public String getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getStoryPoint() {
+        return storyPoint;
+    }
 }
