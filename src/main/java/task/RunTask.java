@@ -40,39 +40,29 @@ public class RunTask {
     private static void deleteTask() {
         System.out.println("Введите id задачи:");
         Scanner input = new Scanner(System.in);
-        Task task = returnTask(input);
-        if (task == null)
-            return;
-        fileTask.delete(task.getId());
+        fileTask.delete(getTask(input).getId());
         System.out.println("Задача успешно удалена!\n");
     }
 
     private static void viewTask() {
         System.out.println("Введите id задачи:");
         Scanner input = new Scanner(System.in);
-        Task task = returnTask(input);
-        if (task == null)
-            return;
-        List<Task> list = List.of(task);
+        List<Task> list = List.of(getTask(input));
         viewAllTasks(list);
     }
 
     private static void viewAllTasks(List<Task> taskList) {
-        for (Task task : taskList) {
-            System.out.println("Task Id: " + task.getId() + "\n"
-                    + "description: " + task.getDescription() + "\n"
-                    + "author: " + task.getAuthor() + "\n"
-                    + "name: " + task.getName() + "\n"
-                    + "storyPoint: " + task.getStoryPoint() + "\n");
-        }
+        taskList.stream().map(task -> "Task Id: " + task.getId() + "\n"
+                + "description: " + task.getDescription() + "\n"
+                + "author: " + task.getAuthor() + "\n"
+                + "name: " + task.getName() + "\n"
+                + "storyPoint: " + task.getStoryPoint() + "\n").forEach(System.out::println);
     }
 
     private static void updateTask() {
         System.out.println("Введите id задачи:");
         Scanner input = new Scanner(System.in);
-        Task task = returnTask(input);
-        if (task == null)
-            return;
+        Task task = getTask(input);
         List<String> commands = List.of("Введите новое описание задачи (текущее: " + task.getDescription() + ")",
                 "Введите нового автора задачи (текущийЖ " + task.getAuthor() + ")",
                 "Введите новое имя задачи (текущее: " + task.getName() + ")",
@@ -91,14 +81,14 @@ public class RunTask {
         List<String> commands = List.of("Введите id(" + (fileTask.getSize() + 1) + "):",
                 "Введите описание задачи:", "Введите автора задачи:",
                 "Введите имя задачи:", "Введите сюжетную точку:");
-        List<String> lines = new ArrayList<>();
 
+        List<String> newTask = new ArrayList<>();
         System.out.println(commands.get(0) + " ");
         Scanner input = new Scanner(System.in);
-        doCommands(input, commands, lines);
+        doCommands(input, commands, newTask);
 
-        fileTask.save(new Task(lines.get(0), lines.get(1), lines.get(2),
-                lines.get(3), Integer.parseInt(lines.get(4))));
+        fileTask.save(new Task(newTask.get(0), newTask.get(1), newTask.get(2),
+                newTask.get(3), Integer.parseInt(newTask.get(4))));
         System.out.println("Новая задача добавлена!\n");
     }
 
@@ -116,7 +106,7 @@ public class RunTask {
         }
     }
 
-    private static Task returnTask(Scanner input) {
+    private static Task getTask(Scanner input) {
         Task task = null;
         while (input.hasNextLine()) {
             String newLine = input.nextLine();
