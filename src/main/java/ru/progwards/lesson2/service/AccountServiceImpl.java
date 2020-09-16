@@ -4,6 +4,7 @@ import ru.progwards.lesson2.exceptions.NotEnoughMoneyException;
 import ru.progwards.lesson2.exceptions.UnknownAccountException;
 
 public class AccountServiceImpl implements AccountService {
+
     @Override
     public void withdraw(int accountId, int amount) throws NotEnoughMoneyException, UnknownAccountException {
 

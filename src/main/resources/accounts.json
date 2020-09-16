@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "holder": "Ivan",
+    "amount": 100
+  },
+  {
+    "id": 2,
+    "holder": "Alexey",
+    "amount": 250
+  },
+  {
+    "id": 3,
+    "holder": "Vladimir",
+    "amount": 350
+  },
+  {
+    "id": 4,
+    "holder": "Nik",
+    "amount": 170
+  },
+  {
+    "id": 5,
+    "holder": "Sergey",
+    "amount": 310
+  },
+  {
+    "id": 6,
+    "holder": "Dmitriy",
+    "amount": 175
+  },
+  {
+    "id": 7,
+    "holder": "Roman",
+    "amount": 305
+  },
+  {
+    "id": 8,
+    "holder": "Igor",
+    "amount": 190
+  },
+  {
+    "id": 9,
+    "holder": "Vasiliy",
+    "amount": 410
+  },
+  {
+    "id": 10,
+    "holder": "Petr",
+    "amount": 535
+  }
+]

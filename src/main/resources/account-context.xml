@@ -3,4 +3,63 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="service" class="ru.progwards.lesson2.service.AccountServiceImpl" depends-on="store"/>
+
+    <bean id="store" class="ru.progwards.lesson2.store.StoreImpl">
+        <property name="initList">
+            <list value-type="java.util.ArrayList">
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="1"/>
+                    <constructor-arg name="holder" value="Ivan"/>
+                    <constructor-arg name="amount" value="100"/>
+                </bean>
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="2"/>
+                    <constructor-arg name="holder" value="Alexey"/>
+                    <constructor-arg name="amount" value="250"/>
+                </bean>
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="3"/>
+                    <constructor-arg name="holder" value="Vladimir"/>
+                    <constructor-arg name="amount" value="350"/>
+                </bean>
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="4"/>
+                    <constructor-arg name="holder" value="Nik"/>
+                    <constructor-arg name="amount" value="170"/>
+                </bean>
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="5"/>
+                    <constructor-arg name="holder" value="Sergey"/>
+                    <constructor-arg name="amount" value="310"/>
+                </bean>
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="6"/>
+                    <constructor-arg name="holder" value="Dmitriy"/>
+                    <constructor-arg name="amount" value="175"/>
+                </bean>
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="7"/>
+                    <constructor-arg name="holder" value="Roman"/>
+                    <constructor-arg name="amount" value="305"/>
+                </bean>
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="8"/>
+                    <constructor-arg name="holder" value="Igor"/>
+                    <constructor-arg name="amount" value="190"/>
+                </bean>
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="9"/>
+                    <constructor-arg name="holder" value="Vasiliy"/>
+                    <constructor-arg name="amount" value="410"/>
+                </bean>
+                <bean class="ru.progwards.lesson2.account.Account">
+                    <constructor-arg name="id" value="10"/>
+                    <constructor-arg name="holder" value="Petr"/>
+                    <constructor-arg name="amount" value="535"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
 </beans>
