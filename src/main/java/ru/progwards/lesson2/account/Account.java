@@ -3,9 +3,9 @@ package ru.progwards.lesson2.account;
 
 public class Account implements IAccount{
 
-    private int id;
-    private String holder;
-    private int amount;
+    private final int id;
+    private final String holder;
+    private final int amount;
 
     public Account(int id, String holder, int amount) {
         this.id = id;
@@ -13,6 +13,7 @@ public class Account implements IAccount{
         this.amount = amount;
     }
 
+    @Override
     public int getId() {
         return id;
     }

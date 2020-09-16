@@ -5,7 +5,7 @@
 
     <bean id="service" class="ru.progwards.lesson2.service.AccountServiceImpl" depends-on="store"/>
 
-    <bean id="store" class="ru.progwards.lesson2.store.StoreImpl">
+    <bean id="store" class="ru.progwards.lesson2.store.StoreImpl" init-method="initAccounts">
         <property name="initList">
             <list value-type="java.util.ArrayList">
                 <bean class="ru.progwards.lesson2.account.Account">
@@ -31,7 +31,7 @@
                 <bean class="ru.progwards.lesson2.account.Account">
                     <constructor-arg name="id" value="5"/>
                     <constructor-arg name="holder" value="Sergey"/>
-                    <constructor-arg name="amount" value="310"/>
+                    <constructor-arg name="amount" value="330"/>
                 </bean>
                 <bean class="ru.progwards.lesson2.account.Account">
                     <constructor-arg name="id" value="6"/>

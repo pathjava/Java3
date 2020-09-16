@@ -2,10 +2,8 @@ package ru.progwards.lesson2;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.progwards.lesson2.account.Account;
 import ru.progwards.lesson2.service.AccountService;
 import ru.progwards.lesson2.service.AccountServiceImpl;
-import ru.progwards.lesson2.store.Store;
 import ru.progwards.lesson2.store.StoreImpl;
 
 public class AccountClient {
@@ -15,8 +13,6 @@ public class AccountClient {
     private static final AccountService service = context.getBean("service", AccountServiceImpl.class);
 
     public static void main(String[] args) {
-
-        store.initAccounts();
 
     }
 
