@@ -2,6 +2,7 @@ package ru.progwards.lesson2;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.progwards.lesson2.exceptions.UnknownAccountException;
 import ru.progwards.lesson2.service.AccountService;
 import ru.progwards.lesson2.service.AccountServiceImpl;
 import ru.progwards.lesson2.store.StoreImpl;
@@ -13,7 +14,11 @@ public class AccountClient {
     private static final AccountService service = context.getBean("service", AccountServiceImpl.class);
 
     public static void main(String[] args) {
-
+        try {
+            System.out.println(service.balance(50));
+        } catch (UnknownAccountException e) {
+            e.printStackTrace();
+        }
     }
 
 }

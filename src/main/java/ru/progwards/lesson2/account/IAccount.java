@@ -4,6 +4,8 @@ public interface IAccount {
 
     int getId();
 
-    void setId(int id);
+    int getAmount();
+
+    String getHolder();
 
 }

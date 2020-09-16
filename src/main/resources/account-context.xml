@@ -26,7 +26,7 @@
                 <bean class="ru.progwards.lesson2.account.Account">
                     <constructor-arg name="id" value="4"/>
                     <constructor-arg name="holder" value="Nik"/>
-                    <constructor-arg name="amount" value="170"/>
+                    <constructor-arg name="amount" value="180"/>
                 </bean>
                 <bean class="ru.progwards.lesson2.account.Account">
                     <constructor-arg name="id" value="5"/>

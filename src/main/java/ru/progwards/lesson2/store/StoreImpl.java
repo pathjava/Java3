@@ -3,6 +3,7 @@ package ru.progwards.lesson2.store;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import ru.progwards.lesson2.account.Account;
 import ru.progwards.lesson2.account.IAccount;
 
 import java.io.FileWriter;
@@ -21,14 +22,16 @@ public class StoreImpl<E extends IAccount> implements Store<E> {
 
     private final Map<Integer, E> accounts = new ConcurrentHashMap<>();
     private List<E> initList;
-    private final Type type = new TypeToken<List<E>>() {
+    private final Type type = new TypeToken<List<Account>>() {
     }.getType();
     private final static String DB_PATH = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\accounts.json";
 
     public void initAccounts() {
-        if (accounts.size() == 0)
+        if (accounts.size() == 0) {
             initList.forEach(i -> accounts.put(i.getId(), i));
-        initList.forEach(this::write);
+            accounts.values().forEach(this::write);
+        }
+        initList.clear();
     }
 
     public void setInitList(List<E> initList) {
@@ -49,12 +52,16 @@ public class StoreImpl<E extends IAccount> implements Store<E> {
     }
 
     @Override
-    public List<E> read() throws IOException {
+    public List<E> read() {
         synchronized (this) {
-            accounts.clear();
-            String json = Files.readString(Path.of(DB_PATH));
-            ArrayList<E> list = new Gson().fromJson(json, type);
-            list.forEach(i -> accounts.put(i.getId(), i));
+            try {
+                accounts.clear();
+                String json = Files.readString(Path.of(DB_PATH));
+                ArrayList<E> list = new Gson().fromJson(json, type);
+                list.forEach(e -> accounts.put(e.getId(), e));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return accounts.values().stream().collect(Collectors.toUnmodifiableList());
         }
     }

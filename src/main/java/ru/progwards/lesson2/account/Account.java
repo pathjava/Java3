@@ -19,14 +19,11 @@ public class Account implements IAccount{
     }
 
     @Override
-    public void setId(int id) {
-
-    }
-
     public String getHolder() {
         return holder;
     }
 
+    @Override
     public int getAmount() {
         return amount;
     }
