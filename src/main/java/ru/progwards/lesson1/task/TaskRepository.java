@@ -1,4 +1,4 @@
-package task;
+package ru.progwards.lesson1.task;
 
 import java.util.List;
 

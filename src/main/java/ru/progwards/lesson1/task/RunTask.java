@@ -1,4 +1,4 @@
-package task;
+package ru.progwards.lesson1.task;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,7 +14,7 @@ public class RunTask {
     private static final ApplicationContext context
             = new ClassPathXmlApplicationContext("task-context.xml");
     private static final FileTaskRepository fileTask
-            = context.getBean("task", FileTaskRepository.class);
+            = context.getBean("ru.progwards.lesson1.task", FileTaskRepository.class);
 
     private static void runSelectedTask(String str) {
         switch (str) {

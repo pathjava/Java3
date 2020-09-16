@@ -1,4 +1,4 @@
-package task;
+package ru.progwards.lesson1.task;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

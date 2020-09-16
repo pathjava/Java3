@@ -1,4 +1,4 @@
-package calc;
+package ru.progwards.lesson1.calc;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

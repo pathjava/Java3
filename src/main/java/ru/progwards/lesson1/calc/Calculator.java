@@ -1,4 +1,4 @@
-package calc;
+package ru.progwards.lesson1.calc;
 
 
 public class Calculator {
