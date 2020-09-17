@@ -11,6 +11,7 @@ import ru.progwards.lesson2.store.StoreImpl;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Scanner;
 
 public class AccountClient {
 
@@ -33,7 +34,7 @@ public class AccountClient {
                 runTransfer();
                 break;
             default:
-                System.out.println("Вы не выбрали номер задачи");
+                showCommandInputId("Вы не выбрали номер задачи");
         }
     }
 
@@ -46,27 +47,85 @@ public class AccountClient {
     }
 
     private static void runDeposit() {
+        showCommandInputId("Введите id аккаунта:");
+        Scanner input = new Scanner(System.in);
+        String id = "";
+        String amount = "";
+        while (input.hasNextLine()) {
+            id = input.nextLine();
+            if (id.isEmpty()) {
+                showCommandInputId("Вы не ввели id");
+                continue;
+            } else
+                showCommandInputId("Введите сумму операции:");
+
+            amount = input.nextLine();
+            if (amount.isEmpty())
+                showCommandInputId("Вы не ввели сумму!");
+            else {
+                break;
+            }
+        }
         try {
-            service.deposit(5, 35);
+            service.deposit(Integer.parseInt(id), Integer.parseInt(amount));
         } catch (NotEnoughMoneyException | UnknownAccountException e) {
             System.out.println(e.getMessage());
         }
+        showBalance(id);
     }
 
     private static void runWithdraw() {
+        showCommandInputId("Введите id аккаунта:");
+        Scanner input = new Scanner(System.in);
+        String id = "";
+        String amount = "";
+        while (input.hasNextLine()) {
+            id = input.nextLine();
+            if (id.isEmpty()) {
+                showCommandInputId("Вы не ввели id");
+                continue;
+            } else
+                showCommandInputId("Введите сумму операции:");
+
+            amount = input.nextLine();
+            if (amount.isEmpty())
+                System.out.println("Вы не ввели сумму!");
+            else {
+                break;
+            }
+        }
         try {
-            service.withdraw(5, 25);
+            service.withdraw(Integer.parseInt(id), Integer.parseInt(amount));
         } catch (UnknownAccountException | NotEnoughMoneyException e) {
+            System.out.println(e.getMessage());
+        }
+        showBalance(id);
+    }
+
+    private static void checkBalance() {
+        showCommandInputId("Введите id аккаунта:");
+        Scanner input = new Scanner(System.in);
+        String id = "";
+        while (input.hasNextLine()) {
+            id = input.nextLine();
+            if (id.isEmpty())
+                showCommandInputId("Вы не ввели id!");
+            else
+                break;
+        }
+        showBalance(id);
+    }
+
+    private static void showBalance(String id) {
+        try {
+            System.out.println("Баланс вашего счета: " + service.balance(Integer.parseInt(id)) + "\n");
+        } catch (UnknownAccountException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private static void checkBalance() {
-        try {
-            System.out.println(service.balance(5));
-        } catch (UnknownAccountException e) {
-            System.out.println(e.getMessage());
-        }
+    private static void showCommandInputId(String s) {
+        System.out.println(s);
     }
 
 
