@@ -8,28 +8,36 @@ import ru.progwards.lesson2.exceptions.NotEnoughMoneyException;
 import ru.progwards.lesson2.exceptions.UnknownAccountException;
 import ru.progwards.lesson2.store.StoreImpl;
 
+import java.util.Objects;
+
 public class AccountServiceImpl implements AccountService, ApplicationContextAware {
 
     private StoreImpl<IAccount> store;
 
     @Override
-    public void withdraw(int accountId, int amount) throws NotEnoughMoneyException, UnknownAccountException {
+    public void withdraw(int accountId, int amount) throws UnknownAccountException, NotEnoughMoneyException {
         for (IAccount account : store.read()) {
             if (account.getId() == accountId) {
-                account.setAmount(account.getAmount() - amount);
-                store.write(account);
+                int currentAmount = account.getAmount();
+                try {
+                    if (currentAmount < amount)
+                        throw new NotEnoughMoneyException();
+                    else {
+                        account.setAmount(currentAmount - amount);
+                        store.write(account);
+                    }
+                } catch (NotEnoughMoneyException e) {
+                    System.out.println("На счете недостаточно средств");
+                }
             }
         }
     }
 
     @Override
     public int balance(int accountId) throws UnknownAccountException {
-        int i = -1;
-        for (IAccount account : store.read()) {
-            if (account.getId() == accountId)
-                i = account.getAmount();
-        }
-        return i;
+        return Objects.requireNonNull(store.read().stream()
+                .filter(e -> e.getId() == accountId).findFirst()
+                .orElse(null)).getAmount();
     }
 
     @Override

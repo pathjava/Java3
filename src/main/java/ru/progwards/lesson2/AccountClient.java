@@ -2,6 +2,7 @@ package ru.progwards.lesson2;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.progwards.lesson2.exceptions.NotEnoughMoneyException;
 import ru.progwards.lesson2.exceptions.UnknownAccountException;
 import ru.progwards.lesson2.service.AccountService;
 import ru.progwards.lesson2.service.AccountServiceImpl;
@@ -15,9 +16,15 @@ public class AccountClient {
 
     public static void main(String[] args) {
         try {
+            service.withdraw(5, 505);
+        } catch (UnknownAccountException | NotEnoughMoneyException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
             System.out.println(service.balance(5));
         } catch (UnknownAccountException e) {
-            System.out.println("Аккаунта с id" + 5 + " нет");
+            System.out.println(e.getMessage());
         }
     }
 
