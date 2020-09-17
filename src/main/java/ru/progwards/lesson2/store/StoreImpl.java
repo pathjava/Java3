@@ -2,6 +2,7 @@ package ru.progwards.lesson2.store;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import ru.progwards.lesson2.account.Account;
 import ru.progwards.lesson2.account.IAccount;
@@ -22,8 +23,6 @@ public class StoreImpl<E extends IAccount> implements Store<E> {
 
     private final Map<Integer, E> accounts = new ConcurrentHashMap<>();
     private List<E> initList;
-    private final Type type = new TypeToken<List<Account>>() {
-    }.getType();
     private final static String DB_PATH = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\accounts.json";
 
     public void initAccounts() {
@@ -57,6 +56,8 @@ public class StoreImpl<E extends IAccount> implements Store<E> {
             try {
                 accounts.clear();
                 String json = Files.readString(Path.of(DB_PATH));
+                Type type = new TypeToken<List<Account>>() {
+                }.getType();
                 ArrayList<E> list = new Gson().fromJson(json, type);
                 list.forEach(e -> accounts.put(e.getId(), e));
             } catch (IOException e) {

@@ -5,7 +5,7 @@ public class Account implements IAccount{
 
     private final int id;
     private final String holder;
-    private final int amount;
+    private int amount;
 
     public Account(int id, String holder, int amount) {
         this.id = id;
@@ -26,5 +26,9 @@ public class Account implements IAccount{
     @Override
     public int getAmount() {
         return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

@@ -15,9 +15,9 @@ public class AccountClient {
 
     public static void main(String[] args) {
         try {
-            System.out.println(service.balance(50));
+            System.out.println(service.balance(5));
         } catch (UnknownAccountException e) {
-            e.printStackTrace();
+            System.out.println("Аккаунта с id" + 5 + " нет");
         }
     }
 

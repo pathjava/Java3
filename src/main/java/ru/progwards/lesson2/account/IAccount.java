@@ -6,6 +6,8 @@ public interface IAccount {
 
     int getAmount();
 
+    void setAmount(int amount);
+
     String getHolder();
 
 }

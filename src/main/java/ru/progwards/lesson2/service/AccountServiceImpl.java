@@ -10,20 +10,26 @@ import ru.progwards.lesson2.store.StoreImpl;
 
 public class AccountServiceImpl implements AccountService, ApplicationContextAware {
 
-    private StoreImpl<?> store;
+    private StoreImpl<IAccount> store;
 
     @Override
     public void withdraw(int accountId, int amount) throws NotEnoughMoneyException, UnknownAccountException {
-
+        for (IAccount account : store.read()) {
+            if (account.getId() == accountId) {
+                account.setAmount(account.getAmount() - amount);
+                store.write(account);
+            }
+        }
     }
 
     @Override
     public int balance(int accountId) throws UnknownAccountException {
+        int i = -1;
         for (IAccount account : store.read()) {
             if (account.getId() == accountId)
-                return account.getAmount();
+                i = account.getAmount();
         }
-        throw new UnknownAccountException("Аккаунта с id" + accountId + " нет");
+        return i;
     }
 
     @Override
