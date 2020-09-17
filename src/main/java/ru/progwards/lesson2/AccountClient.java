@@ -16,8 +16,14 @@ public class AccountClient {
 
     public static void main(String[] args) {
         try {
-            service.withdraw(5, 505);
+            service.withdraw(5, 25);
         } catch (UnknownAccountException | NotEnoughMoneyException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            service.deposit(5, 35);
+        } catch (NotEnoughMoneyException | UnknownAccountException e) {
             System.out.println(e.getMessage());
         }
 
