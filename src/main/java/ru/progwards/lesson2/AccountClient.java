@@ -15,19 +15,27 @@ public class AccountClient {
     private static final AccountService service = context.getBean("service", AccountServiceImpl.class);
 
     public static void main(String[] args) {
+//        try {
+//            service.withdraw(5, 25);
+//        } catch (UnknownAccountException | NotEnoughMoneyException e) {
+//            System.out.println(e.getMessage());
+//        }
+//
+//        try {
+//            service.deposit(5, 35);
+//        } catch (NotEnoughMoneyException | UnknownAccountException e) {
+//            System.out.println(e.getMessage());
+//        }
+
         try {
-            service.withdraw(5, 25);
+            service.transfer(1,2,520);
         } catch (UnknownAccountException | NotEnoughMoneyException e) {
             System.out.println(e.getMessage());
         }
 
         try {
-            service.deposit(5, 35);
-        } catch (NotEnoughMoneyException | UnknownAccountException e) {
-            System.out.println(e.getMessage());
-        }
-
-        try {
+            System.out.println(service.balance(1));
+            System.out.println(service.balance(2));
             System.out.println(service.balance(5));
         } catch (UnknownAccountException e) {
             System.out.println(e.getMessage());
