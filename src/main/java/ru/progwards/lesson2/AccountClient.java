@@ -34,91 +34,145 @@ public class AccountClient {
                 runTransfer();
                 break;
             default:
-                showCommandInputId("Вы не выбрали номер задачи");
+                showCommandInputId("Вы не выбрали номер задачи\n");
         }
     }
 
     private static void runTransfer() {
-        try {
-            service.transfer(1, 2, 520);
-        } catch (UnknownAccountException | NotEnoughMoneyException e) {
-            System.out.println(e.getMessage());
+        showCommandInputId("Введите id аккаунта с которого выполняется перевод:");
+        Scanner input = new Scanner(System.in);
+        String idFrom;
+        String idTo;
+        String amount;
+        while (input.hasNextLine()) {
+            idFrom = getIdFromTransfer(input);
+            idTo = getIdToTransfer(input, idFrom);
+            amount = input.nextLine();
+            if (amount.isEmpty()) {
+                do {
+                    showCommandInputId("Вы не ввели сумму!");
+                    amount = input.nextLine();
+                } while (amount.isEmpty());
+            } else {
+                try {
+                    service.transfer(Integer.parseInt(idFrom), Integer.parseInt(idTo), Integer.parseInt(amount));
+                } catch (UnknownAccountException | NotEnoughMoneyException e) {
+                    System.out.println(e.getMessage());
+                }
+                showBalance(idFrom, "Баланс счета с которого выполнен перевод: ");
+                showBalance(idTo, "Баланс счета на который выполнен перевод: ");
+                return;
+            }
         }
+    }
+
+    private static String getIdFromTransfer(Scanner input) {
+        String idFrom = input.nextLine();
+        if (idFrom.isEmpty()) {
+            do {
+                showCommandInputId("Вы не ввели id с которого выполняется перевод");
+                idFrom = input.nextLine();
+            } while (idFrom.isEmpty());
+        }
+        showCommandInputId("Введите id аккаунта на который выполняется перевод:");
+        return idFrom;
+    }
+
+    private static String getIdToTransfer(Scanner input, String idFrom) {
+        String idTo = input.nextLine();
+        if (idTo.isEmpty() || idFrom.equals(idTo)) {
+            do {
+                showCommandInputId("Вы не ввели id на который выполняется перевод");
+                idTo = input.nextLine();
+            } while (idTo.isEmpty() || idFrom.equals(idTo));
+        }
+        showCommandInputId("Введите сумму операции:");
+        return idTo;
     }
 
     private static void runDeposit() {
         showCommandInputId("Введите id аккаунта:");
         Scanner input = new Scanner(System.in);
-        String id = "";
-        String amount = "";
+        String id;
+        String amount;
         while (input.hasNextLine()) {
-            id = input.nextLine();
-            if (id.isEmpty()) {
-                showCommandInputId("Вы не ввели id");
-                continue;
-            } else
-                showCommandInputId("Введите сумму операции:");
-
+            id = getIdDepositAndWithDraw(input);
             amount = input.nextLine();
-            if (amount.isEmpty())
-                showCommandInputId("Вы не ввели сумму!");
-            else {
-                break;
+            if (amount.isEmpty()) {
+                do {
+                    showCommandInputId("Вы не ввели сумму!");
+                    amount = input.nextLine();
+                } while (amount.isEmpty());
+            } else {
+                try {
+                    service.deposit(Integer.parseInt(id), Integer.parseInt(amount));
+                } catch (NotEnoughMoneyException | UnknownAccountException e) {
+                    System.out.println(e.getMessage());
+                }
+                showBalance(id, "Баланс вашего счета: ");
+                return;
             }
         }
-        try {
-            service.deposit(Integer.parseInt(id), Integer.parseInt(amount));
-        } catch (NotEnoughMoneyException | UnknownAccountException e) {
-            System.out.println(e.getMessage());
-        }
-        showBalance(id);
     }
 
     private static void runWithdraw() {
         showCommandInputId("Введите id аккаунта:");
         Scanner input = new Scanner(System.in);
-        String id = "";
-        String amount = "";
+        String id;
+        String amount;
         while (input.hasNextLine()) {
-            id = input.nextLine();
-            if (id.isEmpty()) {
-                showCommandInputId("Вы не ввели id");
-                continue;
-            } else
-                showCommandInputId("Введите сумму операции:");
-
+            id = getIdDepositAndWithDraw(input);
             amount = input.nextLine();
-            if (amount.isEmpty())
-                System.out.println("Вы не ввели сумму!");
-            else {
-                break;
+            if (amount.isEmpty()) {
+                do {
+                    System.out.println("Вы не ввели сумму!");
+                    amount = input.nextLine();
+                } while (amount.isEmpty());
+            } else {
+                try {
+                    service.withdraw(Integer.parseInt(id), Integer.parseInt(amount));
+                } catch (UnknownAccountException | NotEnoughMoneyException e) {
+                    System.out.println(e.getMessage());
+                }
+                showBalance(id, "Баланс вашего счета: ");
+                return;
             }
         }
-        try {
-            service.withdraw(Integer.parseInt(id), Integer.parseInt(amount));
-        } catch (UnknownAccountException | NotEnoughMoneyException e) {
-            System.out.println(e.getMessage());
+    }
+
+    private static String getIdDepositAndWithDraw(Scanner input) {
+        String id = input.nextLine();
+        if (id.isEmpty()) {
+            do {
+                showCommandInputId("Вы не ввели id");
+                id = input.nextLine();
+            } while (id.isEmpty());
         }
-        showBalance(id);
+        showCommandInputId("Введите сумму операции:");
+        return id;
     }
 
     private static void checkBalance() {
         showCommandInputId("Введите id аккаунта:");
         Scanner input = new Scanner(System.in);
-        String id = "";
+        String id;
         while (input.hasNextLine()) {
             id = input.nextLine();
-            if (id.isEmpty())
-                showCommandInputId("Вы не ввели id!");
-            else
-                break;
+            if (id.isEmpty()) {
+                do {
+                    showCommandInputId("Вы не ввели id!");
+                    id = input.nextLine();
+                } while (id.isEmpty());
+            } else {
+                showBalance(id, "Баланс вашего счета: ");
+                return;
+            }
         }
-        showBalance(id);
     }
 
-    private static void showBalance(String id) {
+    private static void showBalance(String id, String comment) {
         try {
-            System.out.println("Баланс вашего счета: " + service.balance(Integer.parseInt(id)) + "\n");
+            System.out.println(comment + service.balance(Integer.parseInt(id)) + "\n");
         } catch (UnknownAccountException e) {
             System.out.println(e.getMessage());
         }
@@ -134,7 +188,7 @@ public class AccountClient {
                 "* Проверить баланс - введите: 1\n" +
                 "* Списание со счета - введите: 2\n" +
                 "* Пополнение счета - введите: 3\n" +
-                "* Перевести со счета на счет - введите: 4\n" +
+                "* Перевод со счета на счет - введите: 4\n" +
                 "* Завершить программу - stop");
         while (true) {
             list.forEach(System.out::println);
