@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 import ru.progwards.lesson2.account.IAccount;
 import ru.progwards.lesson2.exceptions.NotEnoughMoneyException;
 import ru.progwards.lesson2.exceptions.UnknownAccountException;
+import ru.progwards.lesson2.store.Store;
 import ru.progwards.lesson2.store.StoreImpl;
 
 
@@ -109,6 +110,6 @@ public class AccountServiceImpl implements AccountService, ApplicationContextAwa
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        store = applicationContext.getBean(StoreImpl.class);
+        store = applicationContext.getBean("store", StoreImpl.class);
     }
 }

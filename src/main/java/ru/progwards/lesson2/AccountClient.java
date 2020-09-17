@@ -1,10 +1,11 @@
 package ru.progwards.lesson2;
 
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.progwards.lesson2.exceptions.NotEnoughMoneyException;
 import ru.progwards.lesson2.exceptions.UnknownAccountException;
-import ru.progwards.lesson2.service.AccountService;
 import ru.progwards.lesson2.service.AccountServiceImpl;
 
 import java.io.BufferedReader;
@@ -12,10 +13,9 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
-public class AccountClient {
+public class AccountClient implements ApplicationContextAware {
 
-    private static final ApplicationContext context = new ClassPathXmlApplicationContext("account-context.xml");
-    private static final AccountService service = context.getBean("service", AccountServiceImpl.class);
+    private static AccountServiceImpl service;
 
     private void runAccountOperation(String str) {
         switch (str) {
@@ -172,8 +172,13 @@ public class AccountClient {
         System.out.println(s);
     }
 
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        service = applicationContext.getBean("service" ,AccountServiceImpl.class);
+    }
 
     public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("account-context.xml");
         AccountClient client = context.getBean("client", AccountClient.class);
 
         List<String> list = List.of("Введите условие операции с аккаунтом:\n" +
@@ -197,5 +202,6 @@ public class AccountClient {
             }
         }
     }
+
 
 }
