@@ -3,6 +3,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="client" class="ru.progwards.lesson2.AccountClient" depends-on="service"/>
+
     <bean id="service" class="ru.progwards.lesson2.service.AccountServiceImpl" depends-on="store"/>
 
     <bean id="store" class="ru.progwards.lesson2.store.StoreImpl" init-method="initAccounts">
