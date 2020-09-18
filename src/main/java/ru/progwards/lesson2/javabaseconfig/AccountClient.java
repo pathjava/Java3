@@ -1,12 +1,12 @@
-package ru.progwards.lesson2;
+package ru.progwards.lesson2.javabaseconfig;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.progwards.lesson2.exceptions.NotEnoughMoneyException;
-import ru.progwards.lesson2.exceptions.UnknownAccountException;
-import ru.progwards.lesson2.service.AccountServiceImpl;
+import ru.progwards.lesson2.javabaseconfig.exceptions.NotEnoughMoneyException;
+import ru.progwards.lesson2.javabaseconfig.exceptions.UnknownAccountException;
+import ru.progwards.lesson2.javabaseconfig.service.AccountServiceImpl;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

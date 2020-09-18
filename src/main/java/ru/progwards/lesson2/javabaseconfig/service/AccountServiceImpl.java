@@ -1,13 +1,12 @@
-package ru.progwards.lesson2.service;
+package ru.progwards.lesson2.javabaseconfig.service;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import ru.progwards.lesson2.account.IAccount;
-import ru.progwards.lesson2.exceptions.NotEnoughMoneyException;
-import ru.progwards.lesson2.exceptions.UnknownAccountException;
-import ru.progwards.lesson2.store.Store;
-import ru.progwards.lesson2.store.StoreImpl;
+import ru.progwards.lesson2.javabaseconfig.account.IAccount;
+import ru.progwards.lesson2.javabaseconfig.exceptions.NotEnoughMoneyException;
+import ru.progwards.lesson2.javabaseconfig.exceptions.UnknownAccountException;
+import ru.progwards.lesson2.javabaseconfig.store.StoreImpl;
 
 
 public class AccountServiceImpl implements AccountService, ApplicationContextAware {

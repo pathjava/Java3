@@ -1,7 +1,7 @@
-package ru.progwards.lesson2.service;
+package ru.progwards.lesson2.javabaseconfig.service;
 
-import ru.progwards.lesson2.exceptions.NotEnoughMoneyException;
-import ru.progwards.lesson2.exceptions.UnknownAccountException;
+import ru.progwards.lesson2.javabaseconfig.exceptions.NotEnoughMoneyException;
+import ru.progwards.lesson2.javabaseconfig.exceptions.UnknownAccountException;
 
 public interface AccountService {
 

@@ -1,11 +1,10 @@
-package ru.progwards.lesson2.store;
+package ru.progwards.lesson2.javabaseconfig.store;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
-import ru.progwards.lesson2.account.Account;
-import ru.progwards.lesson2.account.IAccount;
+import ru.progwards.lesson2.javabaseconfig.account.Account;
+import ru.progwards.lesson2.javabaseconfig.account.IAccount;
 
 import java.io.FileWriter;
 import java.io.IOException;

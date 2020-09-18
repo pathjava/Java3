@@ -1,4 +1,4 @@
-package ru.progwards.lesson1.task;
+package ru.progwards.lesson1.task.javabaseconfig;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

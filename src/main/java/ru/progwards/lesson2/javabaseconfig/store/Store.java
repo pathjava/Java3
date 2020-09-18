@@ -1,4 +1,4 @@
-package ru.progwards.lesson2.store;
+package ru.progwards.lesson2.javabaseconfig.store;
 
 import java.io.IOException;
 import java.util.List;

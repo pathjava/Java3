@@ -1,4 +1,4 @@
-package ru.progwards.lesson2.account;
+package ru.progwards.lesson2.javabaseconfig.account;
 
 public interface IAccount {
 

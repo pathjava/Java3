@@ -1,16 +1,11 @@
-package ru.progwards.lesson2.store;
+package ru.progwards.lesson2.javabaseconfig.store;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class StoreInitialization<E> implements Store<E> {
+public class StoreInitialization<E> implements ru.progwards.lesson2.javabaseconfig.store.Store<E> {
 
     private final List<E> initList;
     private final Map<Integer, E> accounts = new ConcurrentHashMap<>();

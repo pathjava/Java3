@@ -1,4 +1,4 @@
-package ru.progwards.lesson1.calc;
+package ru.progwards.lesson1.calc.javabaseconfig;
 
 public class SimpleCalculator implements ICalculator{
     public int sum(int a, int b) {

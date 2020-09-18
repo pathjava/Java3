@@ -1,7 +1,6 @@
-package ru.progwards.lesson2.account;
+package ru.progwards.lesson2.javabaseconfig.account;
 
-
-public class Account implements IAccount{
+public class Account implements IAccount {
 
     private final int id;
     private final String holder;
