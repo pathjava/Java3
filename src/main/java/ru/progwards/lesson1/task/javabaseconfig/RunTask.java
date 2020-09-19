@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class RunTask {
 
     private static final ApplicationContext context
-            = new ClassPathXmlApplicationContext("task-context.xml");
+            = new ClassPathXmlApplicationContext("taskXmlContext.xml");
     private static final FileTaskRepository fileTask
             = context.getBean("task", FileTaskRepository.class);
 

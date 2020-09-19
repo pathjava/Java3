@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class RunCalculator {
 
-    private static final ApplicationContext context = new ClassPathXmlApplicationContext("calc-context.xml");
+    private static final ApplicationContext context = new ClassPathXmlApplicationContext("calcXmlContext.xml");
     private static final ICalculator iCalc = context.getBean("calculator", ICalculator.class);
     private static final Calculator calculator = new Calculator(iCalc);
 

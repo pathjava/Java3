@@ -3,6 +3,7 @@ package ru.progwards.lesson1.task.annotationsconfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.stereotype.Component;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,11 +12,13 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+@Component("fileTaskRepository")
 public class FileTaskRepository implements TaskRepository {
 
     private final Map<String, Task> tasks = new ConcurrentHashMap<>();
@@ -54,7 +57,9 @@ public class FileTaskRepository implements TaskRepository {
 
     @Override
     public List<Task> getAll() {
-        return tasks.values().stream().collect(Collectors.toUnmodifiableList());
+        return tasks.values().stream()
+                .sorted(Comparator.comparing(o -> Integer.parseInt(o.getId())))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @Override

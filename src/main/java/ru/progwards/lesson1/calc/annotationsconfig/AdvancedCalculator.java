@@ -1,5 +1,8 @@
 package ru.progwards.lesson1.calc.annotationsconfig;
 
+import org.springframework.stereotype.Component;
+
+@Component("advancedCalc")
 public class AdvancedCalculator implements ICalculator {
 
     public int sum(int a, int b) {
