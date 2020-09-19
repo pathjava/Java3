@@ -1,7 +1,6 @@
 package ru.progwards.lesson1.task.javabaseconfig;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,12 +10,9 @@ import java.util.Scanner;
 
 public class RunTask {
 
-    private static final ApplicationContext context
-            = new ClassPathXmlApplicationContext("taskXmlContext.xml");
-    private static final FileTaskRepository fileTask
-            = context.getBean("task", FileTaskRepository.class);
+    private static FileTaskRepository fileTask;
 
-    private static void runSelectedTask(String str) {
+    private void runSelectedTask(String str) {
         switch (str) {
             case "1":
                 createTask();
@@ -37,21 +33,21 @@ public class RunTask {
         }
     }
 
-    private static void deleteTask() {
+    private void deleteTask() {
         System.out.println("Введите id задачи:");
         Scanner input = new Scanner(System.in);
         fileTask.delete(getTask(input).getId());
         System.out.println("Задача успешно удалена!\n");
     }
 
-    private static void viewTask() {
+    private void viewTask() {
         System.out.println("Введите id задачи:");
         Scanner input = new Scanner(System.in);
         List<Task> list = List.of(getTask(input));
         viewAllTasks(list);
     }
 
-    private static void viewAllTasks(List<Task> taskList) {
+    private void viewAllTasks(List<Task> taskList) {
         taskList.stream().map(task -> "Task Id: " + task.getId() + "\n"
                 + "description: " + task.getDescription() + "\n"
                 + "author: " + task.getAuthor() + "\n"
@@ -59,7 +55,7 @@ public class RunTask {
                 + "storyPoint: " + task.getStoryPoint() + "\n").forEach(System.out::println);
     }
 
-    private static void updateTask() {
+    private void updateTask() {
         System.out.println("Введите id задачи:");
         Scanner input = new Scanner(System.in);
         Task task = getTask(input);
@@ -77,7 +73,7 @@ public class RunTask {
         System.out.println("Задача успешно обновлена!\n");
     }
 
-    private static void createTask() {
+    private void createTask() {
         List<String> commands = List.of("Введите id(" + (fileTask.getSize() + 1) + "):",
                 "Введите описание задачи:", "Введите автора задачи:",
                 "Введите имя задачи:", "Введите сюжетную точку:");
@@ -92,7 +88,7 @@ public class RunTask {
         System.out.println("Новая задача добавлена!\n");
     }
 
-    private static void doCommands(Scanner input, List<String> commands, List<String> newTask) {
+    private void doCommands(Scanner input, List<String> commands, List<String> newTask) {
         int index = 1;
         while (input.hasNextLine()) {
             String newLine = input.nextLine();
@@ -106,7 +102,7 @@ public class RunTask {
         }
     }
 
-    private static Task getTask(Scanner input) {
+    private Task getTask(Scanner input) {
         Task task = null;
         while (input.hasNextLine()) {
             String newLine = input.nextLine();
@@ -121,6 +117,10 @@ public class RunTask {
     }
 
     public static void main(String[] args) {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TaskConfig.class);
+        fileTask = context.getBean(FileTaskRepository.class);
+        RunTask runTask = context.getBean(RunTask.class);
+
         List<String> list = List.of("Введите номер требуемой задачи:\n" +
                 "* создать задачу - введите: 1\n" +
                 "* изменить задачу - введите: 2\n" +
@@ -137,7 +137,7 @@ public class RunTask {
                     throw new IllegalArgumentException("Вы не ввели условие");
                 if (str.toLowerCase().equals("stop"))
                     return;
-                runSelectedTask(str);
+                runTask.runSelectedTask(str);
             } catch (Exception e) {
                 e.printStackTrace();
             }

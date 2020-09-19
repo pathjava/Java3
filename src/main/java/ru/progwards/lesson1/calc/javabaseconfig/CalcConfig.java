@@ -9,22 +9,22 @@ import org.springframework.context.annotation.Configuration;
 public class CalcConfig {
 
     @Bean
-    public ICalculator getAdvancedCalc(){
+    public ICalculator getAdvancedCalc() {
         return new AdvancedCalculator();
     }
 
     @Bean
-    public ICalculator getSimpleCalc(){
+    public ICalculator getSimpleCalc() {
         return new SimpleCalculator();
     }
 
     @Bean
-    public Calculator getCalc(){
+    public Calculator getCalc() {
         return new Calculator(getAdvancedCalc());
     }
 
     @Bean
-    public RunCalculator getRunner(){
+    public RunCalculator getRunner() {
         return new RunCalculator();
     }
 }

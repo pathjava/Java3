@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,9 +20,8 @@ import java.util.stream.Collectors;
 public class FileTaskRepository implements TaskRepository {
 
     private final Map<String, Task> tasks = new ConcurrentHashMap<>();
-    private final Type type = new TypeToken<List<Task>>() {
-    }.getType();
-    private final static String DB_PATH = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\tasks.json";
+    private final static String DB_PATH
+            = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\tasks.json";
 
     public FileTaskRepository() {
         try {
@@ -54,7 +54,9 @@ public class FileTaskRepository implements TaskRepository {
 
     @Override
     public List<Task> getAll() {
-        return tasks.values().stream().collect(Collectors.toUnmodifiableList());
+        return tasks.values().stream()
+                .sorted(Comparator.comparing(o -> Integer.parseInt(o.getId())))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
@@ -77,6 +79,8 @@ public class FileTaskRepository implements TaskRepository {
         synchronized (this) {
             tasks.clear();
             String json = Files.readString(Path.of(DB_PATH));
+            Type type = new TypeToken<List<Task>>() {
+            }.getType();
             ArrayList<Task> list = new Gson().fromJson(json, type);
             list.forEach(i -> tasks.put(i.getId(), i));
         }
