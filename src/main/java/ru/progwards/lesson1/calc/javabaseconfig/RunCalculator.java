@@ -1,7 +1,6 @@
 package ru.progwards.lesson1.calc.javabaseconfig;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,11 +9,9 @@ import java.util.regex.Pattern;
 
 public class RunCalculator {
 
-    private static final ApplicationContext context = new ClassPathXmlApplicationContext("calcXmlContext.xml");
-    private static final ICalculator iCalc = context.getBean("calculator", ICalculator.class);
-    private static final Calculator calculator = new Calculator(iCalc);
+    private static Calculator calculator;
 
-    public static void runCalc(String str) {
+    public void runCalc(String str) {
         String symbol = "";
         Pattern pattern = Pattern.compile("\\+|\\-|\\*|\\/", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
@@ -45,7 +42,7 @@ public class RunCalculator {
         System.out.println(result);
     }
 
-    private static int getResult(String symbol, int first, int second) {
+    private int getResult(String symbol, int first, int second) {
         int result;
         switch (symbol) {
             case "+":
@@ -64,6 +61,9 @@ public class RunCalculator {
     }
 
     public static void main(String[] args) {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(CalcConfig.class);
+        calculator = context.getBean(Calculator.class);
+        RunCalculator runner = context.getBean(RunCalculator.class);
 
         while (true) {
             System.out.println("Введите числа и символ математической операции или stop:");
@@ -74,7 +74,7 @@ public class RunCalculator {
                     throw new IllegalArgumentException("Вы не ввели условие");
                 if (str.toLowerCase().equals("stop"))
                     return;
-                runCalc(str);
+                runner.runCalc(str);
             } catch (Exception e) {
                 e.printStackTrace();
             }

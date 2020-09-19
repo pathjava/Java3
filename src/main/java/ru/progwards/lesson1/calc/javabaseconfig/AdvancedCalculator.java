@@ -1,5 +1,6 @@
 package ru.progwards.lesson1.calc.javabaseconfig;
 
+
 public class AdvancedCalculator implements ICalculator{
 
     public int sum(int a, int b) {
