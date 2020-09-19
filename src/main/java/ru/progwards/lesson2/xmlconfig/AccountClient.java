@@ -178,7 +178,7 @@ public class AccountClient implements ApplicationContextAware {
     }
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("account-context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("accountXmlContext.xml");
         AccountClient client = context.getBean("client", AccountClient.class);
 
         List<String> list = List.of("Введите условие операции с аккаунтом:\n" +
