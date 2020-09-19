@@ -65,7 +65,6 @@ public class RunCalculator {
     }
 
     public static void main(String[] args) {
-
         while (true) {
             System.out.println("Введите числа и символ математической операции или stop:");
             try {
