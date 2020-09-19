@@ -21,19 +21,19 @@ import java.util.stream.Collectors;
 public class StoreImpl<E extends IAccount> implements Store<E> {
 
     private final Map<Integer, E> accounts = new ConcurrentHashMap<>();
-    private List<E> initList;
-    private final static String DB_PATH = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\accounts.json";
+    private final static String DB_PATH
+            = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\accounts.json";
+
+    public StoreImpl() {
+        initAccounts();
+    }
 
     public void initAccounts() {
         if (accounts.size() == 0) {
-            initList.forEach(i -> accounts.put(i.getId(), i));
+            StoreInitializationAccounts.getAccountsList()
+                    .forEach(account -> accounts.put(account.getId(), (E) account));
             accounts.values().forEach(this::write);
         }
-        initList.clear();
-    }
-
-    public void setInitList(List<E> initList) {
-        this.initList = initList;
     }
 
     @Override

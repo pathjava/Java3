@@ -1,17 +1,17 @@
 package ru.progwards.lesson2.javabaseconfig.service;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.progwards.lesson2.javabaseconfig.account.IAccount;
 import ru.progwards.lesson2.javabaseconfig.exceptions.NotEnoughMoneyException;
 import ru.progwards.lesson2.javabaseconfig.exceptions.UnknownAccountException;
 import ru.progwards.lesson2.javabaseconfig.store.StoreImpl;
 
 
-public class AccountServiceImpl implements AccountService, ApplicationContextAware {
+public class AccountServiceImpl implements AccountService {
 
+    @Autowired
     private StoreImpl<IAccount> store;
+
     private static boolean flag = true;
 
     @Override
@@ -105,10 +105,5 @@ public class AccountServiceImpl implements AccountService, ApplicationContextAwa
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        store = applicationContext.getBean("store", StoreImpl.class);
     }
 }

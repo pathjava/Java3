@@ -1,9 +1,6 @@
 package ru.progwards.lesson2.javabaseconfig;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.progwards.lesson2.javabaseconfig.exceptions.NotEnoughMoneyException;
 import ru.progwards.lesson2.javabaseconfig.exceptions.UnknownAccountException;
 import ru.progwards.lesson2.javabaseconfig.service.AccountServiceImpl;
@@ -13,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 
-public class AccountClient implements ApplicationContextAware {
+public class AccountClient {
 
     private static AccountServiceImpl service;
 
@@ -172,14 +169,11 @@ public class AccountClient implements ApplicationContextAware {
         System.out.println(s);
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        service = applicationContext.getBean("service" ,AccountServiceImpl.class);
-    }
 
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("account-context.xml");
-        AccountClient client = context.getBean("client", AccountClient.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AccountConfig.class);
+        service = context.getBean(AccountServiceImpl.class);
+        AccountClient client = context.getBean(AccountClient.class);
 
         List<String> list = List.of("Введите условие операции с аккаунтом:\n" +
                 "* Проверить баланс - введите: 1\n" +
