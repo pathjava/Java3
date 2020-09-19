@@ -1,18 +1,22 @@
 package ru.progwards.lesson2.annotationsconfig.service;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.progwards.lesson2.annotationsconfig.account.IAccount;
 import ru.progwards.lesson2.annotationsconfig.exceptions.NotEnoughMoneyException;
 import ru.progwards.lesson2.annotationsconfig.exceptions.UnknownAccountException;
 import ru.progwards.lesson2.annotationsconfig.store.StoreImpl;
 
-
-public class AccountServiceImpl implements AccountService, ApplicationContextAware {
+@Component("accountServiceImpl")
+public class AccountServiceImpl implements AccountService {
 
     private StoreImpl<IAccount> store;
     private static boolean flag = true;
+
+    @Autowired
+    public void setStore(StoreImpl<IAccount> store) {
+        this.store = store;
+    }
 
     @Override
     public void withdraw(int accountId, int amount) throws UnknownAccountException, NotEnoughMoneyException {
@@ -105,10 +109,5 @@ public class AccountServiceImpl implements AccountService, ApplicationContextAwa
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        store = applicationContext.getBean("store", StoreImpl.class);
     }
 }

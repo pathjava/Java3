@@ -3,6 +3,8 @@ package ru.progwards.lesson2.annotationsconfig.store;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.progwards.lesson2.annotationsconfig.account.Account;
 import ru.progwards.lesson2.annotationsconfig.account.IAccount;
 
@@ -18,22 +20,23 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+@Component("storeImpl")
 public class StoreImpl<E extends IAccount> implements Store<E> {
 
     private final Map<Integer, E> accounts = new ConcurrentHashMap<>();
-    private List<E> initList;
-    private final static String DB_PATH = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\accounts.json";
+    private final static String DB_PATH
+            = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\accounts.json";
+
+    public StoreImpl() {
+        initAccounts();
+    }
 
     public void initAccounts() {
         if (accounts.size() == 0) {
-            initList.forEach(i -> accounts.put(i.getId(), i));
+            StoreInitializationAccounts.getAccountsList()
+                    .forEach(account -> accounts.put(account.getId(), (E) account));
             accounts.values().forEach(this::write);
         }
-        initList.clear();
-    }
-
-    public void setInitList(List<E> initList) {
-        this.initList = initList;
     }
 
     @Override
