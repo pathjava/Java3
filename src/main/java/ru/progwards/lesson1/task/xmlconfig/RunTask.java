@@ -11,10 +11,7 @@ import java.util.Scanner;
 
 public class RunTask {
 
-    private static final ApplicationContext context
-            = new ClassPathXmlApplicationContext("taskXmlContext.xml");
-    private static final FileTaskRepository fileTask
-            = context.getBean("task", FileTaskRepository.class);
+    private static FileTaskRepository fileTask;
 
     private static void runSelectedTask(String str) {
         switch (str) {
@@ -121,6 +118,10 @@ public class RunTask {
     }
 
     public static void main(String[] args) {
+        ApplicationContext context
+                = new ClassPathXmlApplicationContext("taskXmlContext.xml");
+        fileTask = context.getBean("task", FileTaskRepository.class);
+
         List<String> list = List.of("Введите номер требуемой задачи:\n" +
                 "* создать задачу - введите: 1\n" +
                 "* изменить задачу - введите: 2\n" +
