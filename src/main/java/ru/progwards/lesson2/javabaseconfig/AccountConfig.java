@@ -12,17 +12,17 @@ import ru.progwards.lesson2.javabaseconfig.store.StoreImpl;
 public class AccountConfig {
 
     @Bean
-    public StoreImpl<IAccount> getStoreImpl(){
+    public StoreImpl<IAccount> getStoreImpl() {
         return new StoreImpl<>();
     }
 
     @Bean
-    public AccountServiceImpl getAccountServiceImpl(){
+    public AccountServiceImpl getAccountServiceImpl() {
         return new AccountServiceImpl();
     }
 
     @Bean
-    public AccountClient getAccountClient(){
+    public AccountClient getAccountClient() {
         return new AccountClient();
     }
 }
