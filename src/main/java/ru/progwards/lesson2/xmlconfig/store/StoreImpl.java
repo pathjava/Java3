@@ -22,7 +22,7 @@ public class StoreImpl<E extends IAccount> implements Store<E> {
 
     private final Map<Integer, E> accounts = new ConcurrentHashMap<>();
     private List<E> initList;
-    private final static String DB_PATH = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\accounts.json";
+    private final static String DB_PATH = "C:\\Intellij Idea\\programming\\TestSpring\\src\\main\\resources\\accounts.json";
 
     public void initAccounts() {
         if (accounts.size() == 0) {

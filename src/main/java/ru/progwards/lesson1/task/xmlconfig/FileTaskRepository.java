@@ -21,7 +21,7 @@ public class FileTaskRepository implements TaskRepository {
     private final Map<String, Task> tasks = new ConcurrentHashMap<>();
     private final Type type = new TypeToken<List<Task>>() {
     }.getType();
-    private final static String DB_PATH = "C:\\Users\\OlegPC\\IdeaProjects\\TestSpring\\src\\main\\resources\\tasks.json";
+    private final static String DB_PATH = "C:\\Intellij Idea\\programming\\TestSpring\\src\\main\\resources\\tasks.json";
 
     public FileTaskRepository() {
         try {
