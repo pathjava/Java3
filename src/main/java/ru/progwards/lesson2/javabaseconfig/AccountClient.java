@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AccountClient {
-
     private static AccountServiceImpl service;
 
     private void runAccountOperation(String str) {
